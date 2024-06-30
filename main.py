@@ -8,7 +8,7 @@ from langchain_google_community import GoogleDriveLoader
 import os
 from dotenv import load_dotenv
 
-DEFAULT_FOLDER_ID = "1-ECBtp-K5gIFcKQdR9xnGW7ABSkYsevk"
+DEFAULT_FOLDER_ID = "1D2lETD9nsFPIxw4GE3laO_SdBPu3dQNO"
 
 
 class Main:
