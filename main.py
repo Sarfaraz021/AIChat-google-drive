@@ -1,14 +1,18 @@
 import streamlit as st
+import subprocess
+import os
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain.chains import RetrievalQA
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_pinecone import PineconeVectorStore
 from pinecone import Pinecone
 from langchain_google_community import GoogleDriveLoader
-import os
 from dotenv import load_dotenv
 
 DEFAULT_FOLDER_ID = "1D2lETD9nsFPIxw4GE3laO_SdBPu3dQNO"
+
+# Run setup script to ensure credentials are in the correct location
+subprocess.run(['sh', './setup.sh'], check=True)
 
 
 class Main:
@@ -24,12 +28,14 @@ class Main:
         self.openai_api_key = os.getenv('OPENAI_API_KEY')
         self.pinecone_api_key = os.getenv("PINECONE_API_KEY")
         self.pinecone_index_name = os.getenv("PINECONE_INDEX_NAME")
-        os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+        self.google_credentials_path = os.getenv(
+            "GOOGLE_CREDENTIALS_PATH", ".credentials/credentials.json")
 
     def initialize_retriever(self, folder_id):
         """Initializes the retriever with documents from the specified directory path."""
         loader = GoogleDriveLoader(
             folder_id=folder_id,
+            credentials_path=self.google_credentials_path,
             recursive=False
         )
         documents = loader.load()
