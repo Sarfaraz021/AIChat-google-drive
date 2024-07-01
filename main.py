@@ -28,8 +28,7 @@ class Main:
         self.openai_api_key = os.getenv('OPENAI_API_KEY')
         self.pinecone_api_key = os.getenv("PINECONE_API_KEY")
         self.pinecone_index_name = os.getenv("PINECONE_INDEX_NAME")
-        self.google_credentials_path = os.getenv(
-            "GOOGLE_CREDENTIALS_PATH", ".credentials/credentials.json")
+        os.getenv("GOOGLE_CREDENTIALS_PATH")
 
     def initialize_retriever(self, folder_id):
         """Initializes the retriever with documents from the specified directory path."""
